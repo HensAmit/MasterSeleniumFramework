@@ -1,13 +1,11 @@
 package org.selenium;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.selenium.pom.base.BaseTest;
 import org.testng.annotations.Test;
 
-public class FirstTestCase {
+public class FirstTestCase extends BaseTest {
     @Test
     public void demoTest(){
-        WebDriver driver = new ChromeDriver();
         driver.get("https://askomdch.com/");
         driver.manage().window().maximize();
     }
