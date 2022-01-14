@@ -15,6 +15,6 @@ public class FirstTestCase extends BaseTest {
         storePage.enterTextInSearchInputField("Blue");
         storePage.clickSearchBtn();
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
-        storePage.clickAddToCartBtn();
+        storePage.clickAddToCartBtn("Blue Shoes");
     }
 }
