@@ -11,9 +11,7 @@ import org.testng.annotations.Test;
 public class FirstTestCase extends BaseTest {
     @Test
     public void guestCheckOutUsingDirectBankTransfer() throws InterruptedException {
-        driver.get("https://askomdch.com/");
-
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(driver).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
         Thread.sleep(10000);
 
@@ -42,9 +40,7 @@ public class FirstTestCase extends BaseTest {
 
     @Test
     public void logInAndCheckOutUsingDirectBankTransfer() throws InterruptedException {
-        driver.get("https://askomdch.com/");
-
-        HomePage homePage = new HomePage(driver);
+        HomePage homePage = new HomePage(driver).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
         Thread.sleep(10000);
 

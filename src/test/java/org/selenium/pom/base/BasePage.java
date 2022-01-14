@@ -8,4 +8,8 @@ public class BasePage {
     public BasePage(WebDriver driver){
         this.driver = driver;
     }
+
+    public void loadURL(String endPoint){
+        driver.get("https://askomdch.com" + endPoint);
+    }
 }
