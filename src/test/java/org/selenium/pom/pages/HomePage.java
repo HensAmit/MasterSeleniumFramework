@@ -11,7 +11,7 @@ public class HomePage extends BasePage {
 
     private final By storeMenuLink = By.cssSelector("[id='menu-item-1227']>a");
 
-    public StorePage clickStoreMenuLink(){
+    public StorePage navigateToStoreUsingMenu(){
         driver.findElement(storeMenuLink).click();
         return new StorePage(driver);
     }
