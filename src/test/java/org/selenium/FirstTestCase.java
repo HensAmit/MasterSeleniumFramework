@@ -1,8 +1,8 @@
 package org.selenium;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import org.selenium.pom.base.BaseTest;
 import org.selenium.pom.objects.BillingAddress;
+import org.selenium.pom.objects.Product;
 import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckOutPage;
 import org.selenium.pom.pages.HomePage;
@@ -12,7 +12,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class FirstTestCase extends BaseTest {
     @Test
@@ -25,11 +24,13 @@ public class FirstTestCase extends BaseTest {
         storePage.clickSearchBtn();
         Thread.sleep(5000);
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
-        storePage.clickAddToCartBtn("Blue Shoes");
+
+        Product product = new Product(1215);
+        storePage.clickAddToCartBtn(product.getName());
         Thread.sleep(10000);
 
         CartPage cartPage = storePage.clickViewCartLink();
-        Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
+        Assert.assertEquals(cartPage.getProductName(), product.getName());
         CheckOutPage checkOutPage = cartPage.checkOut();
 
         BillingAddress billingAddress = JacksonUtils.deserializeJson("src\\test\\resources\\myBillingAddress.json", BillingAddress.class);
