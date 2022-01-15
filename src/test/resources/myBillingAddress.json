@@ -1,0 +1,8 @@
+{
+  "firstName" : "demo",
+  "lastName" : "user",
+  "addressLineOne" : "line 1",
+  "city" : "NY",
+  "zipCode" : "12345",
+  "email" : "abc@gmail.com"
+}

@@ -1,17 +1,22 @@
 package org.selenium;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.selenium.pom.base.BaseTest;
 import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckOutPage;
 import org.selenium.pom.pages.HomePage;
 import org.selenium.pom.pages.StorePage;
+import org.selenium.pom.utils.JacksonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import java.io.IOException;
+import java.net.URL;
+
 public class FirstTestCase extends BaseTest {
     @Test
-    public void guestCheckOutUsingDirectBankTransfer() throws InterruptedException {
+    public void guestCheckOutUsingDirectBankTransfer() throws InterruptedException, IOException {
         HomePage homePage = new HomePage(driver).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
         Thread.sleep(10000);
@@ -21,19 +26,14 @@ public class FirstTestCase extends BaseTest {
         Thread.sleep(5000);
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
         storePage.clickAddToCartBtn("Blue Shoes");
-        Thread.sleep(5000);
+        Thread.sleep(10000);
 
         CartPage cartPage = storePage.clickViewCartLink();
         Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
         CheckOutPage checkOutPage = cartPage.checkOut();
 
-        BillingAddress billingAddress = new BillingAddress()
-                .setFirstName("demouser")
-                        .setLastName("qwert")
-                                .setAddressLineOne("line 1")
-                                        .setCity("NY")
-                                                .setZipCode("34456")
-                                                        .setEmail("test@gmail.com");
+        BillingAddress billingAddress = new BillingAddress();
+        billingAddress = JacksonUtils.deserializedJson("src\\test\\resources\\myBillingAddress.json", billingAddress);
         checkOutPage
                 .setBillingAddress(billingAddress)
                 .placeOrder();
