@@ -8,8 +8,8 @@ import java.io.IOException;
 
 public class JacksonUtils {
 
-    public static BillingAddress deserializedJson(String filePath, BillingAddress billingAddress) throws IOException {
+    public static <T> T deserializeJson(String filePath, Class<T> T) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-        return objectMapper.readValue(new FileReader(filePath), billingAddress.getClass());
+        return objectMapper.readValue(new FileReader(filePath), T);
     }
 }

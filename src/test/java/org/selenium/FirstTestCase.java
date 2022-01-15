@@ -32,8 +32,7 @@ public class FirstTestCase extends BaseTest {
         Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
         CheckOutPage checkOutPage = cartPage.checkOut();
 
-        BillingAddress billingAddress = new BillingAddress();
-        billingAddress = JacksonUtils.deserializedJson("src\\test\\resources\\myBillingAddress.json", billingAddress);
+        BillingAddress billingAddress = JacksonUtils.deserializeJson("src\\test\\resources\\myBillingAddress.json", BillingAddress.class);
         checkOutPage
                 .setBillingAddress(billingAddress)
                 .placeOrder();
