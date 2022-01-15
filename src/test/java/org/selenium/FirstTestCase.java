@@ -3,6 +3,7 @@ package org.selenium;
 import org.selenium.pom.base.BaseTest;
 import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.objects.Product;
+import org.selenium.pom.objects.User;
 import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckOutPage;
 import org.selenium.pom.pages.HomePage;
@@ -42,7 +43,7 @@ public class FirstTestCase extends BaseTest {
     }
 
     @Test
-    public void logInAndCheckOutUsingDirectBankTransfer() throws InterruptedException {
+    public void logInAndCheckOutUsingDirectBankTransfer() throws InterruptedException, IOException {
         HomePage homePage = new HomePage(driver).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
         Thread.sleep(10000);
@@ -51,23 +52,22 @@ public class FirstTestCase extends BaseTest {
         storePage.clickSearchBtn();
         Thread.sleep(5000);
         Assert.assertEquals(storePage.getTitle(), "Search results: “Blue”");
-        storePage.clickAddToCartBtn("Blue Shoes");
+
+        Product product = new Product(1215);
+        storePage.clickAddToCartBtn(product.getName());
         Thread.sleep(5000);
 
         CartPage cartPage = storePage.clickViewCartLink();
-        Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
+        Assert.assertEquals(cartPage.getProductName(), product.getName());
         CheckOutPage checkOutPage = cartPage.checkOut();
         checkOutPage.clickHereToLoginLink();
         Thread.sleep(3000);
 
+        BillingAddress billingAddress = JacksonUtils.deserializeJson("src\\test\\resources\\myBillingAddress.json", BillingAddress.class);
+        User user = new User("hens1", "demopassword");
         checkOutPage
-                .login("hens1", "demopassword")
-                .enterFirstName("Paul")
-                .enterLastName("Adams")
-                .enterAddressLineOne("NY City")
-                .enterCity("NY")
-                .enterZipCode("45678")
-                .enterEmail("paul@ishere.com")
+                .login(user)
+                .setBillingAddress(billingAddress)
                 .placeOrder();
         Thread.sleep(10000);
         Assert.assertEquals(checkOutPage.getSuccessNotice(), "Thank you. Your order has been received.");
