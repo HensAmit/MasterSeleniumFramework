@@ -1,6 +1,7 @@
 package org.selenium;
 
 import org.selenium.pom.base.BaseTest;
+import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckOutPage;
 import org.selenium.pom.pages.HomePage;
@@ -26,13 +27,15 @@ public class FirstTestCase extends BaseTest {
         Assert.assertEquals(cartPage.getProductName(), "Blue Shoes");
         CheckOutPage checkOutPage = cartPage.checkOut();
 
+        BillingAddress billingAddress = new BillingAddress()
+                .setFirstName("demouser")
+                        .setLastName("qwert")
+                                .setAddressLineOne("line 1")
+                                        .setCity("NY")
+                                                .setZipCode("34456")
+                                                        .setEmail("test@gmail.com");
         checkOutPage
-                .enterFirstName("demouser")
-                .enterLastName("qwert")
-                .enterAddressLineOne("line 1")
-                .enterCity("NY")
-                .enterZipCode("12334")
-                .enterEmail("abc@gmail.com")
+                .setBillingAddress(billingAddress)
                 .placeOrder();
         Thread.sleep(15000);
         Assert.assertEquals(checkOutPage.getSuccessNotice(), "Thank you. Your order has been received.");
