@@ -3,10 +3,28 @@ package org.selenium.pom.objects;
 public class BillingAddress {
     private String firstName;
     private String lastName;
+    private String country;
     private String addressLineOne;
     private String city;
+    private String state;
     private String zipCode;
     private String email;
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getFirstName() {
         return firstName;

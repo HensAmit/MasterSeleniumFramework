@@ -1,8 +1,10 @@
 {
   "firstName" : "demo",
   "lastName" : "user",
+  "country" : "India",
   "addressLineOne" : "line 1",
-  "city" : "NY",
-  "zipCode" : "12345",
+  "city" : "Kolkata",
+  "state" : "West Bengal",
+  "zipCode" : "700032",
   "email" : "abc@gmail.com"
 }

@@ -3,6 +3,7 @@ package org.selenium.pom.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.selenium.pom.base.BasePage;
 import org.selenium.pom.objects.BillingAddress;
 import org.selenium.pom.objects.User;
@@ -14,10 +15,10 @@ public class CheckOutPage extends BasePage {
 
     private final By firstNameFld = By.cssSelector("#billing_first_name");
     private final By lastNameFld = By.cssSelector("#billing_last_name");
-    private final By countryDropdown = By.cssSelector("#select2-billing_country-container");
+    private final By countryDropdown = By.id("billing_country");
     private final By addressLineOneFld = By.cssSelector("#billing_address_1");
     private final By billingCityFld = By.cssSelector("#billing_city");
-    private final By state = By.cssSelector("#select2-billing_state-container");
+    private final By stateDropdown = By.id("billing_state");
     private final By billingZipCodeFld = By.cssSelector("#billing_postcode");
     private final By billingEmailFld = By.cssSelector("#billing_email");
     private final By placeOrderBtn = By.cssSelector("#place_order");
@@ -42,6 +43,12 @@ public class CheckOutPage extends BasePage {
         return this;
     }
 
+    public CheckOutPage selectCountry(String countryName){
+        Select select = new Select(driver.findElement(countryDropdown));
+        select.selectByVisibleText(countryName);
+        return this;
+    }
+
     public CheckOutPage enterAddressLineOne(String addressLineOne){
         wait.until(ExpectedConditions.visibilityOfElementLocated(addressLineOneFld));
         driver.findElement(addressLineOneFld).clear();
@@ -53,6 +60,12 @@ public class CheckOutPage extends BasePage {
         wait.until(ExpectedConditions.visibilityOfElementLocated(billingCityFld));
         driver.findElement(billingCityFld).clear();
         driver.findElement(billingCityFld).sendKeys(city);
+        return this;
+    }
+
+    public CheckOutPage selectState(String stateName){
+        Select select = new Select(driver.findElement(stateDropdown));
+        select.selectByVisibleText(stateName);
         return this;
     }
 
@@ -73,8 +86,10 @@ public class CheckOutPage extends BasePage {
     public CheckOutPage setBillingAddress(BillingAddress billingAddress){
         return enterFirstName(billingAddress.getFirstName())
                 .enterLastName(billingAddress.getLastName())
+                .selectCountry(billingAddress.getCountry())
                 .enterAddressLineOne(billingAddress.getAddressLineOne())
                 .enterCity(billingAddress.getCity())
+                .selectState(billingAddress.getState())
                 .enterZipCode(billingAddress.getZipCode())
                 .enterEmail(billingAddress.getEmail());
     }
