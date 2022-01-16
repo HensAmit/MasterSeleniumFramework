@@ -79,17 +79,13 @@ public class CheckOutPage extends BasePage {
     }
 
     public CheckOutPage placeOrder(){
-        List<WebElement> overlays = driver.findElements(overlay);
-        if(overlays.size() > 0){
-            new WebDriverWait(driver, Duration.ofSeconds(15)).until(
-                    ExpectedConditions.invisibilityOfAllElements(overlays)
-            );
-        }
+        waitForOverlaysToDisappear(overlay);
         driver.findElement(placeOrderBtn).click();
         return this;
     }
 
     public String getSuccessNotice(){
+        waitForOverlaysToDisappear(overlay);
         return driver.findElement(successNotice).getText();
     }
 
