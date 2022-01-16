@@ -34,6 +34,7 @@ public class FirstTestCase extends BaseTest {
         BillingAddress billingAddress = JacksonUtils.deserializeJson("src\\test\\resources\\myBillingAddress.json", BillingAddress.class);
         checkOutPage
                 .setBillingAddress(billingAddress)
+                .selectDirectBankTransfer()
                 .placeOrder();
         Assert.assertEquals(checkOutPage.getSuccessNotice(), "Thank you. Your order has been received.");
     }
@@ -60,6 +61,7 @@ public class FirstTestCase extends BaseTest {
         checkOutPage
                 .login(user)
                 .setBillingAddress(billingAddress)
+                .selectDirectBankTransfer()
                 .placeOrder();
         Assert.assertEquals(checkOutPage.getSuccessNotice(), "Thank you. Your order has been received.");
     }

@@ -2,6 +2,7 @@ package org.selenium.pom.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.selenium.pom.base.BasePage;
@@ -28,6 +29,7 @@ public class CheckOutPage extends BasePage {
     private final By passwordFld = By.id("password");
     private final By loginBtn = By.name("login");
     private final By overlay = By.cssSelector(".blockUI.blockOverlay");
+    private final By directBankTransferRadioBtn = By.id("payment_method_bacs");
 
     public CheckOutPage enterFirstName(String firstName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameFld));
@@ -131,5 +133,13 @@ public class CheckOutPage extends BasePage {
 
     public CheckOutPage login(User user){
         return enterUsername(user.getUsername()).enterPassword(user.getPassword()).clickLoginBtn();
+    }
+
+    public CheckOutPage selectDirectBankTransfer(){
+        WebElement e = wait.until(ExpectedConditions.elementToBeClickable(directBankTransferRadioBtn));
+        if(!e.isSelected()){
+            e.click();
+        }
+        return this;
     }
 }
