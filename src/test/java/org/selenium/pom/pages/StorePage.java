@@ -12,7 +12,7 @@ public class StorePage extends BasePage {
 
     private final By searchInputField = By.cssSelector("input[class='search-field']");
     private final By searchBtn = By.cssSelector("button[value='Search']");
-    private final By title = By.cssSelector(".woocommerce-products-header__title.page-title");
+    private final By title = By.xpath("//h1[contains(text(),'Search results')]");
     private final By viewCartLink = By.cssSelector("a[title='View cart']");
 
     public void enterTextInSearchInputField(String text) {
