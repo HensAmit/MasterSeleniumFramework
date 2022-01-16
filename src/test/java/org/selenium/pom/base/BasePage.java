@@ -11,9 +11,11 @@ import java.util.List;
 
 public class BasePage {
     protected WebDriver driver;
+    protected WebDriverWait wait;
 
     public BasePage(WebDriver driver){
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(20));
     }
 
     public void loadURL(String endPoint){
@@ -23,9 +25,7 @@ public class BasePage {
     public void waitForOverlaysToDisappear(By overlay){
         List<WebElement> overlays = driver.findElements(overlay);
         if(overlays.size() > 0){
-            new WebDriverWait(driver, Duration.ofSeconds(15)).until(
-                    ExpectedConditions.invisibilityOfAllElements(overlays)
-            );
+            wait.until(ExpectedConditions.invisibilityOfAllElements(overlays));
         }
         else {
             System.out.println("OVERLAYS NOT FOUND");
