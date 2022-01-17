@@ -2,6 +2,7 @@
 
 <suite name="Suite1" verbose="1">
     <test name="Regression1">
+        <parameter name="browser" value="CHROME"></parameter>
         <packages>
             <package name="org.selenium.pom.tests"/>
         </packages>
