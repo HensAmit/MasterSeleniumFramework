@@ -9,7 +9,7 @@ public class DriverManager {
 
     public WebDriver initializeDriver(){
         WebDriver driver;
-        String browser = System.getProperty("browser");
+        String browser = System.getProperty("browser", "Chrome");
         switch (browser.toLowerCase()){
             case "chrome" :
                 WebDriverManager.chromedriver().setup();
