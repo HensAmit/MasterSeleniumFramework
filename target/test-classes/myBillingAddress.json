@@ -2,7 +2,7 @@
   "firstName" : "demo",
   "lastName" : "user",
   "country" : "India",
-  "addressLineOne" : "line 1",
+  "addressLineOne" : "address",
   "city" : "Kolkata",
   "state" : "West Bengal",
   "zipCode" : "700032",

@@ -1,6 +1,7 @@
 package org.selenium.pom.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -17,9 +18,11 @@ public class CheckOutPage extends BasePage {
     private final By firstNameFld = By.cssSelector("#billing_first_name");
     private final By lastNameFld = By.cssSelector("#billing_last_name");
     private final By countryDropdown = By.id("billing_country");
+    private final By alternateCountryDropdown = By.id("select2-billing_country-container");
     private final By addressLineOneFld = By.cssSelector("#billing_address_1");
-    private final By billingCityFld = By.cssSelector("#billing_city");
+    private final By billingCityFld = By.id("billing_city");
     private final By stateDropdown = By.id("billing_state");
+    private final By alternateStateDropdown = By.id("select2-billing_state-container");
     private final By billingZipCodeFld = By.cssSelector("#billing_postcode");
     private final By billingEmailFld = By.cssSelector("#billing_email");
     private final By placeOrderBtn = By.cssSelector("#place_order");
@@ -46,8 +49,12 @@ public class CheckOutPage extends BasePage {
     }
 
     public CheckOutPage selectCountry(String countryName){
-        Select select = new Select(driver.findElement(countryDropdown));
-        select.selectByVisibleText(countryName);
+//        Select select = new Select(driver.findElement(countryDropdown));
+//        select.selectByVisibleText(countryName);
+        wait.until(ExpectedConditions.elementToBeClickable(alternateCountryDropdown)).click();
+        WebElement countryElement = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[text()='"+countryName+"']"))));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true)", countryElement);
+        countryElement.click();
         return this;
     }
 
@@ -59,15 +66,19 @@ public class CheckOutPage extends BasePage {
     }
 
     public CheckOutPage enterCity(String city){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(billingCityFld));
+        wait.until(ExpectedConditions.elementToBeClickable(billingCityFld));
         driver.findElement(billingCityFld).clear();
         driver.findElement(billingCityFld).sendKeys(city);
         return this;
     }
 
     public CheckOutPage selectState(String stateName){
-        Select select = new Select(driver.findElement(stateDropdown));
-        select.selectByVisibleText(stateName);
+//        Select select = new Select(driver.findElement(stateDropdown));
+//        select.selectByVisibleText(stateName);
+        wait.until(ExpectedConditions.elementToBeClickable(alternateStateDropdown)).click();
+        WebElement stateElement = wait.until(ExpectedConditions.elementToBeClickable(driver.findElement(By.xpath("//li[text()='"+stateName+"']"))));
+        ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView(true)", stateElement);
+        stateElement.click();
         return this;
     }
 
