@@ -10,6 +10,7 @@ import org.selenium.pom.pages.HomePage;
 import org.selenium.pom.pages.StorePage;
 import org.selenium.pom.utils.JacksonUtils;
 import org.testng.Assert;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class FirstTestCase extends BaseTest {
     @Test
     public void guestCheckOutUsingDirectBankTransfer() throws IOException {
-        HomePage homePage = new HomePage(driver).loadURL();
+        HomePage homePage = new HomePage(getDriver()).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
 
         storePage.enterTextInSearchInputField("Blue");
@@ -41,7 +42,7 @@ public class FirstTestCase extends BaseTest {
 
     @Test
     public void logInAndCheckOutUsingDirectBankTransfer() throws InterruptedException, IOException {
-        HomePage homePage = new HomePage(driver).loadURL();
+        HomePage homePage = new HomePage(getDriver()).loadURL();
         StorePage storePage = homePage.navigateToStoreUsingMenu();
 
         storePage.enterTextInSearchInputField("Blue");
