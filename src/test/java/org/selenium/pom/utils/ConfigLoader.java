@@ -1,5 +1,7 @@
 package org.selenium.pom.utils;
 
+import org.selenium.pom.constants.EnvType;
+
 import java.util.Properties;
 
 public class ConfigLoader {
@@ -7,7 +9,17 @@ public class ConfigLoader {
     private static ConfigLoader configLoader;
 
     private ConfigLoader(){
-        properties = PropertyUtils.propertyLoader("src/test/resources/config.properties");
+        String env = System.getProperty("env", EnvType.STAGE.toString());
+        switch (EnvType.valueOf(env.toUpperCase())){
+            case STAGE:
+                properties = PropertyUtils.propertyLoader("src/test/resources/config.properties");
+                break;
+            case PRODUCTION:
+                properties = PropertyUtils.propertyLoader("src/test/resources/prod_config.properties");
+                break;
+            default:
+                throw new RuntimeException("INVALID ENV NAME: " + env);
+        }
     }
 
     public static ConfigLoader getInstance(){
