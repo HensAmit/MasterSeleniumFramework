@@ -8,6 +8,7 @@ import org.selenium.pom.pages.CartPage;
 import org.selenium.pom.pages.CheckOutPage;
 import org.selenium.pom.pages.HomePage;
 import org.selenium.pom.pages.StorePage;
+import org.selenium.pom.utils.ConfigLoader;
 import org.selenium.pom.utils.JacksonUtils;
 import org.testng.Assert;
 import org.testng.annotations.Ignore;
@@ -58,7 +59,7 @@ public class FirstTestCase extends BaseTest {
         checkOutPage.clickHereToLoginLink();
 
         BillingAddress billingAddress = JacksonUtils.deserializeJson("src\\test\\resources\\myBillingAddress.json", BillingAddress.class);
-        User user = new User("hens1", "demopassword");
+        User user = new User(ConfigLoader.getInstance().getUsername(), ConfigLoader.getInstance().getPassword());
         checkOutPage
                 .login(user)
                 .setBillingAddress(billingAddress)

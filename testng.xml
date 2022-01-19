@@ -7,10 +7,4 @@
             <class name="org.selenium.pom.tests.FirstTestCase" />
         </classes>
     </test>
-    <test name="Test2" parallel="methods" thread-count="2">
-        <parameter name="browser" value="FIREFOX"></parameter>
-        <classes>
-            <class name="org.selenium.pom.tests.FirstTestCase" />
-        </classes>
-    </test>
 </suite>
